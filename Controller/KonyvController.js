@@ -1,17 +1,48 @@
 import KonyvekView from "../View/KonyvekView.js";
 import KonyvModel from "../Model/KonyvModel.js";
+import KonyvekPublicView from "../View/konyvekPublicView.js";
+import KonyvPublicView from "../View/konyvekPublicView.js";
 
 class KonyvController {
     constructor() {
         //console.log("KonyvController");
         const konyvmodel = new KonyvModel();
-        konyvmodel.adatBe("../adat.json", this.konyvAdatok);
+        const adminGomb = $("#adminGomb")
+        const fooldalGomb = $("#fooldalGomb")
+        adminGomb.on("click", ()=>{
+            $("main").empty()
+            konyvmodel.adatBe("../adat.json", this.konyvAdatokAdmin);
+
+        })
+
+        $(window).on("modosit",(event)=>{
+            //console.log("controllerben módosít", event.detail);
+            konyvmodel.adatModosit(event.detail)
+        })
+
+        $(window).on("torol",(event)=>{
+            //console.log("controllerben töröl", event.detail);
+            konyvmodel.adatTorol(event.detail)
+        })
+
+        fooldalGomb.on("click", ()=>{
+            $("main").empty()
+            //$("main").html("ez a főoldal")
+            konyvmodel.adatBe("../adat.json", this.konyvAdatokPublikus);
+        })
     }
 
-    konyvAdatok(tomb) {
+    konyvAdatokAdmin(tomb) {
         //console.log(tomb);
         let szuloelem = $("main")
         new KonyvekView(tomb, szuloelem)
+        //new KonyvekPublicView(tomb, szuloelem)
+    }
+
+    konyvAdatokPublikus(tomb) {
+        let szuloelem = $("main")
+        new KonyvekPublicView(tomb, szuloelem)
+        //szuloelem.append("<p>ez a főoldal</p>")
     }
 }
 

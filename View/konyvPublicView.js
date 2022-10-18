@@ -1,3 +1,4 @@
+/*Egy darab könyvet jelenít meg */
 class KonyvView {
     #elem
   constructor(elem, szuloElem) {
@@ -5,14 +6,10 @@ class KonyvView {
     //console.log(elem);
     //console.log(elem.id);
     this.#elem=elem
-    szuloElem.append(`<tr>
-    <td>${elem.id}</td>
-    <td>${elem.cim}</td>
-    <td>${elem.szerzo}</td>
-    <td>${elem.ar}</td>
-    <td><button id=M"${elem.id}"class="modositas">módosítás</button></td>
-    <td><button id=T${elem.id}class"torles">törlés</button></td>
-    </tr>`)
+    szuloElem.append(`<div class="konyvTarolo">
+    <li>Id: ${elem.id}</li>
+    <li>Cím: ${elem.cim}</li>
+    </div>`)
 
     this.recordElem=szuloElem.children("tr:last-child")
     //console.log(this.recordElem);
